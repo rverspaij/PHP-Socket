@@ -1,0 +1,3 @@
+# Set default behavior to LF, and declare files that will always have CRLF
+* text=auto
+www/socket.php text eol=lf

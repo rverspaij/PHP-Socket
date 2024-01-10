@@ -17,14 +17,14 @@ $connections[] = $sock;
 
 echo "Listening for new connections on port $port: " . "\n";
 
-while(true) {
+while (true) {
 
     $reads = $writes = $exceptions = $connections;
     socket_select($reads, $writes, $exceptions, 0);
 
-    if(in_array($sock, $reads)) {
+    if (in_array($sock, $reads)) {
         $new_connection = socket_accept($sock);
-        $header = socket_read($new_connection, 1024);     
+        $header = socket_read($new_connection, 1024);
         handshake($header, $new_connection, $address, $port);
         $connections[] = $new_connection;
         $reply = [
@@ -42,12 +42,12 @@ while(true) {
 
         $data = socket_read($value, 1024);
 
-        if(!empty($data)) {
+        if (!empty($data)) {
             $message = unmask($data);
             $decoded_message = json_decode($message, true);
             if ($decoded_message) {
-                if(isset($decoded_message['text'])){
-                    if($decoded_message['type'] === 'join') {
+                if (isset($decoded_message['text'])) {
+                    if ($decoded_message['type'] === 'join') {
                         $members[$key] = [
                             'name' => $decoded_message['sender'],
                             'connection' => $value
@@ -59,13 +59,11 @@ while(true) {
                     }
                 }
             }
-        }
-
-        else if($data === '')  {
+        } else if ($data === '') {
             echo "disconnected " . $key . " \n";
             unset($connections[$key]);
-            if(array_key_exists($key, $members)) {
-                
+            if (array_key_exists($key, $members)) {
+
                 $message = [
                     "type" => "left",
                     "sender" => "Server",

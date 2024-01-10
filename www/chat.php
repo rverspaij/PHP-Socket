@@ -1,7 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['userKey']))
-{
+if (!isset($_SESSION['userKey'])) {
     header('Location: index.php');
 }
 
@@ -9,10 +8,16 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-
+if (isset($_POST['logout'])) {
+    // Perform logout actions
+    session_destroy();
+    header('Location: index.php');
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,6 +25,7 @@ error_reporting(E_ALL);
     <title>Chat</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="container">
         <div class="chat-box">
@@ -32,11 +38,12 @@ error_reporting(E_ALL);
                 <input type="text" name="msg" id="msg" placeholder="Write message">
                 <button type="submit">Send</button>
             </form>
-            <form action="" class="close-form hidden"> 
-                <button type="submit">End Chat</button>
+            <form action="" method="post" class="join-form" class="msg-form hidden">
+                <button type="submit" name="logout">Logout</button>
             </form>
         </div>
     </div>
     <script src="main.js"></script>
 </body>
+
 </html>

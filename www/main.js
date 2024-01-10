@@ -1,21 +1,21 @@
-(function(){
+(function () {
     function sendMessage(message) {
         socket.send(message);
     }
 
     function parseMessage(message) {
-        var msg = {type: "", sender: "", text: ""};
+        var msg = { type: "", sender: "", text: "" };
         try {
             msg = JSON.parse(message);
         }
-        catch(e) {
+        catch (e) {
             return false;
         }
         return msg;
     }
 
     function appendMessage(message) {
-        
+
         var parsedMsg;
         var msgContainer = document.querySelector(".messages");
         if (parsedMsg = parseMessage(message)) {
@@ -39,7 +39,7 @@
             text = document.createTextNode(parsedMsg.text);
 
             console.log(sender);
-            
+
             senderElem.appendChild(sender);
             textElem.appendChild(text);
 
@@ -55,7 +55,7 @@
         var joinForm = document.querySelector('form.join-form');
         var msgForm = document.querySelector('form.msg-form');
         var closeForm = document.querySelector('form.close-form');
-    
+
         function joinFormSubmit(event) {
             event.preventDefault();
             sender = document.getElementById('sender').value;
@@ -69,9 +69,9 @@
             msgForm.classList.remove('hidden');
             closeForm.classList.remove('hidden');
         }
-    
+
         joinForm.addEventListener('submit', joinFormSubmit);
-    
+
         function msgFormSubmit(event) {
             event.preventDefault();
             var msgField, msgText, msg;
@@ -86,7 +86,7 @@
             sendMessage(msg);
             msgField.value = '';
         }
-    
+
         msgForm.addEventListener('submit', msgFormSubmit);
 
         function closeFormSubmit(event) {
@@ -119,7 +119,7 @@
     var socketClose = (e) => {
         var msg;
         console.log(e);
-        if(e.wasClean) {
+        if (e.wasClean) {
             console.log("The connection closed cleanly");
             msg = {
                 type: 'left',
@@ -137,7 +137,7 @@
         }
         appendMessage(JSON.stringify(msg));
     }
-    
+
     var socketError = (e) => {
         console.log("WebSocket Error");
         console.log(e);
@@ -147,5 +147,5 @@
     socket.addEventListener("message", socketMessage);
     socket.addEventListener("close", socketClose);
     socket.addEventListener("error", socketError);
-   
+
 })();

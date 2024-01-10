@@ -1,9 +1,10 @@
 <?php
 namespace Classes;
+
 use PragmaRX\Google2FA\Google2FA;
 
 
-class GoogleAuth 
+class GoogleAuth
 {
     public $google2fa;
     public $userKey;
@@ -15,12 +16,12 @@ class GoogleAuth
         $this->google2fa = new Google2FA();
 
         // Check if the user's secret key is stored in the session.
-        if(!isset($_SESSION["userKey"])){
+        if (!isset($_SESSION["userKey"])) {
             // get key from database if exists.
             $this->userKey = (new User)->getKeyFromUserAccount($post);
 
             // Generate a new secret key and add to user account in database.
-            if(!$this->userKey){
+            if (!$this->userKey) {
                 $this->userKey = $this->google2fa->generateSecretKey();
 
 
@@ -29,8 +30,7 @@ class GoogleAuth
 
             // Store the key in the session variable.
             $_SESSION["userKey"] = $this->userKey;
-        }
-        else{
+        } else {
             // Retrieve the user's key
             $this->userKey = $_SESSION["userKey"];
         }
@@ -46,8 +46,7 @@ class GoogleAuth
         $valid = $this->google2fa->verifyKey($_SESSION["userKey"], $code, $window);
 
         // If the the code is valid redirect to chat page.
-        if($valid)
-        {
+        if ($valid) {
             $_SESSION['message'] = '2factor Authentication Completed Successfully';
             $_SESSION['status'] = 'success';
             header('location: chat.php');
@@ -62,7 +61,7 @@ class GoogleAuth
         exit;
     }
 
-    public function getOtp() {
-        return $this->google2fa->getCurrentOtp($this->userKey);
-    }
+    // public function getOtp() {
+    //     return $this->google2fa->getCurrentOtp($this->userKey);
+    // }
 }

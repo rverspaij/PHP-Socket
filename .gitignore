@@ -1,0 +1,16 @@
+# Ignore data directory and other generated files
+data/
+.DS_Store
+Thumbs.db
+
+# Ignore system-specific files
+*.swp
+*~
+
+# Ignore editor backup files
+*.bak
+*.back
+
+# Ignore vendor directories
+/vendor/
+/node_modules/
