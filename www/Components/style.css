@@ -1,0 +1,101 @@
+/* Apply box-sizing to all elements */
+* {
+    box-sizing: border-box;
+}
+
+/* Flex container for centering content */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container for the chat with relative positioning */
+.chat-container {
+    position: relative;
+}
+
+/* Styling for the messages container */
+.messages {
+    height: 300px;
+    width: 500px;
+    border: 2px solid #ccc;
+    border-radius: 3px;
+    padding: 1em;
+    overflow: scroll;
+}
+
+/* Styling for input elements */
+input {
+    display: block;
+    width: 100%;
+    padding: 5px;
+    margin: 5px 0;
+}
+
+/* Styling for buttons */
+button {
+    display: block;
+    background: rgb(39, 112, 215);
+    padding: 5px;
+    margin: 5px 0;
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    color: white;
+}
+
+/* Styling for message form at the bottom right */
+form.msg-form {
+    bottom: 1em;
+    right: 1em;
+    left: 1em;
+}
+
+/* Styling for close button in a form */
+form.close-form button {
+    background: transparent;
+    border: 1px solid rgb(237, 102, 102);
+    color: black;
+    border-radius: 5px;
+}
+
+/* Hide elements with the hidden class */
+.hidden {
+    display: none;
+}
+
+/* Styling for individual messages */
+.msg {
+    margin-bottom: 5px;
+}
+
+/* Styling for the text content of messages */
+.msg-text {
+    padding: 5px;
+    display: inline-block;
+    border-radius: 5px;
+}
+
+/* Styling for normal messages */
+.msg-normal .msg-text {
+    background: rgb(39, 112, 215);
+    color: white;
+}
+
+/* Styling for notification, join, and left messages */
+.msg-notification .msg-text,
+.msg-join .msg-text,
+.msg-left .msg-text {
+    background: #eee;
+    border: 1px solid #ccc;
+}
+
+/* Styling for sender information in notification, join, and left messages */
+.msg-notification .msg-sender,
+.msg-join .msg-sender,
+.msg-left .msg-sender {
+    display: none;
+}

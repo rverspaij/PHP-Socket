@@ -1,26 +1,23 @@
 <?php
-$loginCheck = false;
-// Start output buffering to prevent immediate output to browser.
+// Start output buffering to prevent immediate output to the browser.
 ob_start();
 
+// Require necessary files and classes.
 require "vendor/autoload.php";
 require "Classes/User.php";
 require "Classes/GoogleAuth.php";
 
 // Import classes for easy use in code.
 use Classes\User;
-use Classes\GoogleAuth;
-
 
 // Configure PHP to display all errors and warnings.
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
+// Check if the form is submitted (POST request), and create a new user if it is.
 if (!empty($_POST)) {
-    if ((new user())->createUser($_POST)) {
-        $loginCheck = true;
-    }
+    (new User())->createUser($_POST);
 }
 ?>
 
@@ -28,8 +25,10 @@ if (!empty($_POST)) {
 <html lang="eng">
 
 <head>
-    <title>2factor Authentication Example</title>
+    <title>2-factor Authentication Example</title>
+    <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <!-- Styling for the login form -->
     <style>
         body {
             margin: 0;
@@ -57,20 +56,23 @@ if (!empty($_POST)) {
 </head>
 
 <body>
+    <!-- Login form HTML -->
     <div id="login">
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
                         <form id="login-form" class="form" action="create.php" method="post">
+                            <!-- Title for the form -->
                             <h3 class="text-center text-info">Create Account</h3>
+                            <!-- Form fields for name, email, password, and confirm password -->
                             <div class="form-group">
                                 <label for="name" class="text-info">Name:</label><br>
                                 <input type="text" name="name" id="name" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label for="email" class="text-info"> Email:</label><br>
-                                <input type="text" name="email" id="password" class="form-control">
+                                <label for="email" class="text-info">Email:</label><br>
+                                <input type="email" name="email" id="email" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label for="password" class="text-info">Password:</label><br>
@@ -80,11 +82,18 @@ if (!empty($_POST)) {
                                 <label for="cpassword" class="text-info">Confirm Password:</label><br>
                                 <input type="password" name="cpassword" id="cpassword" class="form-control">
                             </div>
+                            <!-- Submit and cancel buttons -->
                             <div class="form-group">
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="Create Account">
-                                <input type="submit" name="submit" class="btn btn-danger btn-md" value="Cancel">
+                                <input type="button" name="cancel" class="btn btn-danger btn-md" onclick="goBack()"
+                                    value="Cancel">
                             </div>
-                            <br />
+                            <!-- JavaScript function to navigate back to the home page on cancel -->
+                            <script>
+                                function goBack() {
+                                    window.location.href = 'http://localhost:99';
+                                }
+                            </script>
                         </form>
                     </div>
                 </div>

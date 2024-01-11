@@ -47,7 +47,6 @@ class GoogleAuth
 
         // If the the code is valid redirect to chat page.
         if ($valid) {
-            $_SESSION['message'] = '2factor Authentication Completed Successfully';
             $_SESSION['status'] = 'success';
             header('location: chat.php');
             exit;
@@ -60,8 +59,4 @@ class GoogleAuth
         header("location: index.php");
         exit;
     }
-
-    // public function getOtp() {
-    //     return $this->google2fa->getCurrentOtp($this->userKey);
-    // }
 }
